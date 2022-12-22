@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
-#include <WiFi.h>
-#include <esp_camera.h>
+// #include <WiFi.h>
+// #include <esp_camera.h>
 
 #include "config.hpp" // include before all local files
 
@@ -35,6 +35,9 @@ void setup()
 
 void loop()
 {
+
+    // TODO: check if connected to WiFi
+
     // capture a frame
     camera_fb_t *fb = NULL;
     esp_err_t frame_err = camera_capture(fb);
@@ -45,7 +48,7 @@ void loop()
     }
 
     // upload the frame to the server
-    esp_err_t upload_err = upload_file(fb->buf, fb->len, (char*)"file");
+    esp_err_t upload_err = upload_file(fb->buf, fb->len, (char *)"file");
     if (upload_err != ESP_OK)
     {
         Serial.printf("Upload failed with error 0x%x", upload_err);

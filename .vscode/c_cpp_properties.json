@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/Users/steven/Library/Arduino15/packages/esp32/hardware/esp32/2.0.5/cores/esp32/",
+                "/Users/steven/Library/Arduino15/packages/esp32/hardware/esp32/2.0.5/cores/esp32/**",
+                "/Users/steven/Library/Arduino15/packages/esp32/hardware/esp32/2.0.5/libraries/**",
+                "/Users/steven/Library/Arduino15/packages/esp32/hardware/esp32/2.0.5/tools/sdk/esp32/include/**",
+                "/Users/steven/Library/Arduino15/packages/esp32/hardware/esp32/2.0.5/variants/m5stack_core_esp32/**"
+            ],
+            "defines": [],
+            "macFrameworkPath": [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-clang-arm64"
+        }
+    ],
+    "version": 4
+}

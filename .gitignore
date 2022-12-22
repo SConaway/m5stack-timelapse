@@ -104,3 +104,7 @@ dist
 .tern-port
 
 uploads
+
+arduino/config.hpp
+
+.DS_Store

@@ -99,6 +99,8 @@ void loop()
     if (upload_err != ESP_OK)
     {
         log_e("Upload failed with error 0x%x", upload_err);
+        blink(1 * 1000);
+        ESP.restart();
         return;
     }
 

@@ -81,11 +81,17 @@ esp_err_t upload_file(uint8_t *data, size_t len, char *filename)
     WiFiClient client;
     UDHttp udh;
 
-    udh.upload(UPLOAD_URL, filename, buf_len, rdataf, progressf, responsef);
+    int upRes = udh.upload(UPLOAD_URL, filename, buf_len, rdataf, progressf, responsef);
     // `rdataf` will be called to read data from the buffer
     // `progressf` will be called to show upload progress
     // `responsef` will be called to show the response from the server
     //     (but this never seems to happen)
+
+    if (upRes != 0)
+    {
+        log_e("upload failed: %d");
+        return ESP_FAIL;
+    }
 
     // reset buf
     buf = NULL;

@@ -1,11 +1,14 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 // define wifi info
 #define WIFI_SSID "your wifi ssid"
 #define WIFI_PASS "your wifi password"
 #define UPLOAD_URL "http://192.168.0.3:3000/api/upload"
 
 // define interval in seconds
-#define INTERVAL 60 // 1 minute
-// #define INTERVAL 60*5 // 5 minutes
+// #define INTERVAL 60 // 1 minute
+#define INTERVAL 60 * 5 // 5 minutes
 // #define INTERVAL 60*10 // 10 minutes
 // #define INTERVAL 60*15 // 15 minutes
 // #define INTERVAL 60*30 // 30 minutes
@@ -29,3 +32,5 @@
 // #define CAMERA_MODEL_ESP32_CAM_BOARD
 // #define CAMERA_MODEL_ESP32S2_CAM_BOARD
 // #define CAMERA_MODEL_ESP32S3_CAM_LCD
+
+#endif

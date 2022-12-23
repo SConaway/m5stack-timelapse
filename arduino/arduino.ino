@@ -8,20 +8,26 @@
 #include "camera.hpp"
 #include "network.hpp"
 
+#include "esp_heap_caps.h"
+
 // esp_err_t camera_init();
 // esp_err_t camera_capture(camera_fb_t *fb);
 // void wifi_connect();
 
+void heap_caps_alloc_failed_hook(size_t requested_size, uint32_t caps, const char *function_name)
+{
+    log_e("%s was called but failed to allocate %d bytes with 0x%X capabilities. \n", function_name, requested_size, caps);
+}
+
 void setup()
 {
+    heap_caps_register_failed_alloc_callback(heap_caps_alloc_failed_hook);
     delay(5000); // allow for hardware to boot up, serial monitor to be connected
 
     Serial.begin(115200);
     Serial.setDebugOutput(true);
 
     log_i("Good morning!");
-
-    wifi_connect();
 
     // camera init
     esp_err_t camera_err = camera_init();
@@ -31,6 +37,8 @@ void setup()
         delay(10 * 1000);
         ESP.restart();
     }
+
+    wifi_connect();
 
     log_i("at your service");
 }

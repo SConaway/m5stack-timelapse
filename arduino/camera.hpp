@@ -284,6 +284,6 @@ esp_err_t camera_init();
 
 // capture a frame and return it
 // make sure to esp_camera_fb_return() the result when done
-esp_err_t camera_capture(camera_fb_t *fb);
+esp_err_t camera_capture(camera_fb_t **fb);
 
 #endif

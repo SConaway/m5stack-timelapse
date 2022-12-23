@@ -34,29 +34,45 @@ int rdataf(uint8_t *buffer, int len)
 {
     // feed len bytes from buffer to the upload
 
-    log_i("reading %d bytes", len);
+    log_d("reading %d bytes", len);
+
+    // check if we have enough data
+    if (buf_len <= 0)
+    {
+        log_d("no more data to read");
+        return 0;
+    }
+
+    // prevent reading more than we have
+    if (len > buf_len)
+    {
+        len = buf_len;
+        log_d("only reading %d", len);
+    }
 
     int ret = 0;
     for (int i = 0; i < len; i++)
     {
         buffer[i] = buf[i];
+        // printf("%c", buf[i]);
         ret++;
     }
 
     // advance buf
-    buf += len;
+    buf += ret;
+    buf_len -= ret;
 
     return ret;
 }
 
 void progressf(int percent)
 {
-    log_i("upload progress: %d%%\n", percent);
+    log_d("upload progress: %d%%\n", percent);
 }
 
-esp_err_t upload_file(uint8_t *data, size_t len, char *fieldName)
+esp_err_t upload_file(uint8_t *data, size_t len)
 {
-    log_i("Uploading %d bytes to %s:%d:%s with field %s", len, UPLOAD_HOST, UPLOAD_PORT, UPLOAD_PATH, fieldName);
+    log_i("Uploading %d bytes to %s", len, UPLOAD_URL);
 
     // copy to buffer
     buf = data;
@@ -65,25 +81,17 @@ esp_err_t upload_file(uint8_t *data, size_t len, char *fieldName)
     WiFiClient client;
     UDHttp udh;
 
-    // client.connect(UPLOAD_HOST, UPLOAD_PORT);
-
-    // if (!client.connected())
-    // {
-    //     log_e("Failed to connect to %s:%d", UPLOAD_HOST, UPLOAD_PORT);
-    //     return ESP_FAIL;
-    // }
-
-    // client.print(String("POST ") + UPLOAD_PATH + " HTTP/1.1\r\n" +
-    //              "Host: " + UPLOAD_HOST + ":" + UPLOAD_PORT + "\r\n" +
-    //              "Connection: close\r\n\r\n");
-
-    udh.upload(UPLOAD_URL, "camera.jpg", len, rdataf, progressf, responsef);
+    udh.upload(UPLOAD_URL, "camera.jpg", buf_len, rdataf, progressf, responsef);
+    // `rdataf` will be called to read data from the buffer
+    // `progressf` will be called to show upload progress
+    // `responsef` will be called to show the response from the server
+    //     (but this never seems to happen)
 
     // reset buf
     buf = NULL;
     buf_len = 0;
 
-    log_i("upload complete: %uKB %u", (uint32_t)(len / 1024));
+    log_i("upload complete: %uKB", (uint32_t)(len / 1024));
 
     return ESP_OK;
 }

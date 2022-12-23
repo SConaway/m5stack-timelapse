@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
         cb(null, dir);
     },
     filename: function (req, file, cb) {
-        let name = new Date().toISOString();
+        let name = `${new Date().toISOString()}-${file.originalname}`;
         let additional = 1;
 
         // if file exists, add -1, -2, -3, etc. to the end of the filename
@@ -31,11 +31,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 
-app.post('/api/upload', upload.single('file'), (req, res) => {
+app.post('/api/upload', upload.single('data'), (req, res) => {
     if (!req.file) {
         return res.status(400).send('No file was uploaded.');
     }
-    res.send('File uploaded and saved successfully at ' + req.file.path);
+    res.status(201).send(
+        'File uploaded and saved successfully at ' + req.file.path,
+    );
 });
 
 app.listen(3000, () => {

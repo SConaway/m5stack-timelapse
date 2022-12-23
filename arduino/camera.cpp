@@ -105,18 +105,20 @@ esp_err_t camera_init()
 
 // capture a frame and return it
 // make sure to esp_camera_fb_return() the result when done
-esp_err_t camera_capture(camera_fb_t *fb)
+esp_err_t camera_capture(camera_fb_t **fb)
 {
     // capture a frame
-    fb = esp_camera_fb_get();
-    if (!fb)
+    *fb = esp_camera_fb_get();
+    if (!*fb)
     {
         log_e("Frame buffer could not be acquired");
         return ESP_FAIL;
     }
-
-    // log info about captured frame
-    log_i("Captured frame: %dx%d, format=%d", fb->width, fb->height, fb->format);
+    else
+    {
+        // log info about captured frame
+        log_i("Frame Captured, width: %d, height: %d, size: %d", (*fb)->width, (*fb)->height, (*fb)->len);
+    }
 
     // replace this with your own function
     // display_image(fb->width, fb->height, fb->pixformat, fb->buf, fb->len);

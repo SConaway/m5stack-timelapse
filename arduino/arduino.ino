@@ -19,8 +19,7 @@ void setup()
     Serial.begin(115200);
     Serial.setDebugOutput(true);
 
-    Serial.println("");
-    Serial.println("");
+    log_i("Good morning!");
 
     wifi_connect();
 
@@ -28,37 +27,43 @@ void setup()
     esp_err_t camera_err = camera_init();
     if (camera_err != ESP_OK)
     {
-        Serial.printf("Camera init failed with error 0x%x", camera_err);
-        return;
+        log_e("Camera init failed with error 0x%x, restarting soon", camera_err);
+        delay(10 * 1000);
+        ESP.restart();
     }
-}
 
+    log_i("at your service");
+}
 void loop()
 {
 
-    // TODO: check if connected to WiFi
+    // check if connected to WiFi
+    // if not, restart
+    if (WiFi.status() != WL_CONNECTED)
+    {
+        log_e("WiFi disconnected, restarting");
+        ESP.restart();
+    }
 
     // capture a frame
     camera_fb_t *fb = NULL;
-    esp_err_t frame_err = camera_capture(fb);
-    if (frame_err != ESP_OK)
+    esp_err_t frame_err = camera_capture(&fb);
+    if (frame_err != ESP_OK || !fb->len)
     {
-        Serial.printf("Camera capture failed with error 0x%x", frame_err);
+        log_e("Camera capture failed with error 0x%x\n", frame_err);
         return;
+    }
+    else
+    {
+        log_i("Frame Captured, width: %d, height: %d, size: %d", fb->width, fb->height, fb->len);
     }
 
     // upload the frame to the server
-    esp_err_t upload_err = upload_file(fb->buf, fb->len, (char *)"file");
+    esp_err_t upload_err = upload_file(fb->buf, fb->len);
     if (upload_err != ESP_OK)
     {
-        Serial.printf("Upload failed with error 0x%x", upload_err);
+        log_e("Upload failed with error 0x%x", upload_err);
         return;
-    }
-
-    // loop for now
-    while (1)
-    {
-        ;
     }
 
     // return the frame buffer

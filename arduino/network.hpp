@@ -11,6 +11,6 @@
 void wifi_connect();
 
 // may need to cast to (char *) if using a string literal/constant
-esp_err_t upload_file(uint8_t *data, size_t len, char *fieldName);
+esp_err_t upload_file(uint8_t *data, size_t len);
 
 #endif

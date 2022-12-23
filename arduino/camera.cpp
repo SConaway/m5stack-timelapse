@@ -81,7 +81,11 @@ esp_err_t camera_init()
     }
 
     sensor_t *s = esp_camera_sensor_get();
+
+    log_i("resizing image");
     s->set_framesize(s, FRAMESIZE_SXGA);
+    log_i("resizing image done");
+
     // initial sensors are flipped vertically and colors are a bit saturated
     if (s->id.PID == OV3660_PID)
     {

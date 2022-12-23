@@ -121,6 +121,9 @@
 #define HREF_GPIO_NUM 26
 #define PCLK_GPIO_NUM 21
 
+// added from pinout
+#define LED_Pin 16
+
 #elif defined(CAMERA_MODEL_M5STACK_UNITCAM)
 #define PWDN_GPIO_NUM -1
 #define RESET_GPIO_NUM 15

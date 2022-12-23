@@ -19,8 +19,29 @@ void heap_caps_alloc_failed_hook(size_t requested_size, uint32_t caps, const cha
     log_e("%s was called but failed to allocate %d bytes with 0x%X capabilities. \n", function_name, requested_size, caps);
 }
 
+void blink(int ms)
+{
+    int blinks = ms / 100 / 2; // 100ms on, 100ms off
+    for (int i = 0; i < blinks; i++)
+    {
+#ifdef LED_Pin
+        digitalWrite(LED_Pin, HIGH);
+#endif
+        delay(100);
+#ifdef LED_Pin
+        digitalWrite(LED_Pin, LOW);
+#endif
+        delay(100);
+    }
+}
+
 void setup()
 {
+#ifdef LED_Pin
+    pinMode(LED_Pin, OUTPUT);
+    digitalWrite(LED_Pin, HIGH);
+#endif
+    // set up heap alloc failed hook
     heap_caps_register_failed_alloc_callback(heap_caps_alloc_failed_hook);
     delay(5000); // allow for hardware to boot up, serial monitor to be connected
 
@@ -34,14 +55,18 @@ void setup()
     if (camera_err != ESP_OK)
     {
         log_e("Camera init failed with error 0x%x, restarting soon", camera_err);
-        delay(10 * 1000);
+        blink(10 * 1000);
         ESP.restart();
     }
 
     wifi_connect();
 
     log_i("at your service");
+#ifdef LED_Pin
+    digitalWrite(LED_Pin, LOW);
+#endif
 }
+
 void loop()
 {
 
@@ -50,6 +75,7 @@ void loop()
     if (WiFi.status() != WL_CONNECTED)
     {
         log_e("WiFi disconnected, restarting");
+        blink(1 * 1000);
         ESP.restart();
     }
 
@@ -58,7 +84,9 @@ void loop()
     esp_err_t frame_err = camera_capture(&fb);
     if (frame_err != ESP_OK || !fb->len)
     {
-        log_e("Camera capture failed with error 0x%x\n", frame_err);
+        log_e("Camera capture failed with error 0x%x, restarting\n", frame_err);
+        blink(1 * 1000);
+        ESP.restart();
         return;
     }
     else

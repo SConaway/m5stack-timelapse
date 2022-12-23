@@ -1,9 +1,12 @@
 const express = require('express');
 const multer = require('multer');
+const fs = require('fs');
+
 const app = express();
 
+const port = process.env.PORT || 3000;
+
 // if it doesn't exist, create uploads folder
-const fs = require('fs');
 const dir = './uploads';
 if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
@@ -40,6 +43,6 @@ app.post('/api/upload', upload.single('data'), (req, res) => {
     );
 });
 
-app.listen(3000, () => {
-    console.log('Server listening on port 3000');
+app.listen(port, () => {
+    console.log('Server listening on port', port);
 });

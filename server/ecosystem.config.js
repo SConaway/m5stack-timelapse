@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'server',
+            name: 'camera server',
             script: './server.js',
             env: {
                 // NODE_ENV: 'development',

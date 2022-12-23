@@ -5,14 +5,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
-    "pkg": "^5.8.0",
-    "pm2": "^5.2.2"
+    "pkg": "^5.8.0"
   },
   "main": "server.js",
   "scripts": {
     "build": "pkg --no-bytecode --public-packages \"*\" --public --compress GZip server.js",
     "buildLinux": "yarn build --targets node18-linuxstatic-x64",
-    "start": "pm2 start server.js",
+    "start": "pm2 start ecosystem.config.js",
     "dev": "nodemon server.js"
   },
   "license": "MIT"

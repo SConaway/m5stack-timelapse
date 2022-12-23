@@ -7,6 +7,7 @@ module.exports = {
                 // NODE_ENV: 'development',
                 PORT: 59182,
             },
+            watch: true,
         },
     ],
 };

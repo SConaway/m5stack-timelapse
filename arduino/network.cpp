@@ -70,7 +70,7 @@ void progressf(int percent)
     log_d("upload progress: %d%%\n", percent);
 }
 
-esp_err_t upload_file(uint8_t *data, size_t len)
+esp_err_t upload_file(uint8_t *data, size_t len, char *filename)
 {
     log_i("Uploading %d bytes to %s", len, UPLOAD_URL);
 
@@ -81,7 +81,7 @@ esp_err_t upload_file(uint8_t *data, size_t len)
     WiFiClient client;
     UDHttp udh;
 
-    udh.upload(UPLOAD_URL, "camera.jpg", buf_len, rdataf, progressf, responsef);
+    udh.upload(UPLOAD_URL, filename, buf_len, rdataf, progressf, responsef);
     // `rdataf` will be called to read data from the buffer
     // `progressf` will be called to show upload progress
     // `responsef` will be called to show the response from the server

@@ -59,7 +59,7 @@ void loop()
     }
 
     // upload the frame to the server
-    esp_err_t upload_err = upload_file(fb->buf, fb->len);
+    esp_err_t upload_err = upload_file(fb->buf, fb->len, "camera.jpg");
     if (upload_err != ESP_OK)
     {
         log_e("Upload failed with error 0x%x", upload_err);

@@ -1,0 +1,13 @@
+{
+    "name": "video",
+    "version": "1.0.0",
+    "description": "A collection of scripts to turn a sequence of images into a video",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "jimp": "^0.16.0",
+        "moment-timezone": "^0.5.40"
+    }
+}

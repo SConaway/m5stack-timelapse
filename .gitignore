@@ -108,3 +108,9 @@ uploads
 arduino/config.hpp
 
 .DS_Store
+
+images/
+
+# for fonts
+video/*.fnt
+video/*.png

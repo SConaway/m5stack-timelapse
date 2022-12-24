@@ -36,14 +36,14 @@ async function processImage(file, font) {
     // Add the timestamp to the lower-right corner of the image
     image.print(
         font,
-        imageWidth - 300,
+        imageWidth - 260,
         imageHeight - 40,
         // {
         // alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT,
         // alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM,
         // text:
         // },
-        timestamp.format('MM/DD/YYYY HH:mm:ss'),
+        timestamp.format('MM/DD/YYYY HH:mm'),
     );
 
     // Save the modified image to the output directory

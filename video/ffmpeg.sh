@@ -25,3 +25,6 @@ ffmpeg -y -framerate $framerate -pattern_type glob -i "$input_dir/*.jpg" -c:v li
 
 # # change the frame rate to 30fps for easier viewing
 # ffmpeg -i $temp_file -r 30 $output_file
+
+# remove input directory
+rm -rf $input_dir

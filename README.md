@@ -2,6 +2,8 @@
 
 A nodejs/arduino combo to take photos every \_ minutes. The photos are then uploaded to a server via wifi.
 
+`video/timestamp/timestamp` is a C++ WIP.
+
 ## Credits
 
 -   [esp-upload-download-file-http](https://github.com/nhatuan84/esp32-upload-download-multipart-http), but with some modifications.

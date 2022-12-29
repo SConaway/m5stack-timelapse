@@ -9,7 +9,9 @@
                 "/Users/steven/Library/Arduino15/packages/esp32/hardware/esp32/2.0.5/libraries/**",
                 "/Users/steven/Library/Arduino15/packages/esp32/hardware/esp32/2.0.5/tools/sdk/esp32/include/**",
                 "/Users/steven/Library/Arduino15/packages/esp32/hardware/esp32/2.0.5/variants/m5stack_core_esp32/**",
-                "/Users/steven/Documents/Arduino/libraries/**"
+                "/Users/steven/Documents/Arduino/libraries/**",
+                "/opt/homebrew/Cellar/imagemagick/7.1.0-55/include/ImageMagick-7/Magick++/",
+                "/opt/homebrew/Cellar/boost/1.80.0/include/boost/**"
             ],
             "defines": [],
             "macFrameworkPath": [
@@ -17,7 +19,7 @@
             ],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",
-            "cppStandard": "c++17",
+            "cppStandard": "c++20",
             "intelliSenseMode": "macos-clang-arm64"
         }
     ],

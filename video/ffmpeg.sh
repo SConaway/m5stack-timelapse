@@ -18,8 +18,11 @@ num_zeros=$(ls -1 $input_dir | head -n 1 | grep -o '[0-9]\+' | tr -d '\n' | wc -
 
 # echo "$input_dir/%$num_zeros"d.jpg
 
-# Create a temp video file using ffmpeg
-ffmpeg -y -framerate $framerate -pattern_type glob -i "$input_dir/*.jpg" -c:v libx264 -pix_fmt yuv420p -vf "scale=$width:$height" -filter:v fps=$final_fr $output_file
+# Create the video file using ffmpeg
+ffmpeg -y -framerate $framerate -pattern_type glob -i \
+    -c:v libx264 -pix_fmt yuv420p -vf "scale=$width:$height" \
+    -filter:v fps=$final_fr $output_file
+
 # ffmpeg -y -framerate $framerate -i "$input_dir/%0$num_zeros"d.jpg -c:v libx264 -pix_fmt yuv420p -vf "scale=$width:$height" $temp_file
 # ffmpeg -y -pattern_type glob -i "$input_dir/*.jpg" -c:v libx264 -pix_fmt yuv420p -vf "scale=$width:$height" -r $framerate $temp_file
 

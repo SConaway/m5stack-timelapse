@@ -38,11 +38,6 @@ async function processImage(file, font) {
         font,
         imageWidth - 260,
         imageHeight - 40,
-        // {
-        // alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT,
-        // alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM,
-        // text:
-        // },
         timestamp.format('MM/DD/YYYY HH:mm'),
     );
 

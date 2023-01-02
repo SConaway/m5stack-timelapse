@@ -8,7 +8,7 @@ output_file='../images/video.mp4'
 # Set the output video dimensions and frame rate
 width='1280'
 height='1024'
-framerate='15' # images per second
+framerate='30' # images per second
 
 final_fr='30' # final frame rate
 [ $framerate -gt 30 ] && final_fr='60'
@@ -19,7 +19,7 @@ num_zeros=$(ls -1 $input_dir | head -n 1 | grep -o '[0-9]\+' | tr -d '\n' | wc -
 # echo "$input_dir/%$num_zeros"d.jpg
 
 # Create a temp video file using ffmpeg
-ffmpeg -y -framerate $framerate -pattern_type glob -i "$input_dir/*.jpg" -c:v libx264 -pix_fmt yuv420p -vf "scale=$width:$height" -filter:v fps=$final_fr $output_file
+ffmpeg -y -framerate $framerate -pattern_type glob -i "$input_dir/*.jpg" -c:v libx265 -crf 20 -preset fast -pix_fmt yuv420p -vf "scale=$width:$height" -filter:v fps=$final_fr $output_file
 # ffmpeg -y -framerate $framerate -i "$input_dir/%0$num_zeros"d.jpg -c:v libx264 -pix_fmt yuv420p -vf "scale=$width:$height" $temp_file
 # ffmpeg -y -pattern_type glob -i "$input_dir/*.jpg" -c:v libx264 -pix_fmt yuv420p -vf "scale=$width:$height" -r $framerate $temp_file
 

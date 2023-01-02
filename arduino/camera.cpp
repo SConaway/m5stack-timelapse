@@ -129,15 +129,6 @@ esp_err_t camera_init()
 
     // s->set_aec_value(s, 1);
 
-    // waste 10 frames to let things settle
-    for (int i = 0; i < 10; i++)
-    {
-        log_d("wasting frame");
-        camera_fb_t *fb = esp_camera_fb_get();
-        esp_camera_fb_return(fb);
-        delay(500);
-    }
-
     return ESP_OK;
 }
 

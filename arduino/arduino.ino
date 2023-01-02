@@ -61,10 +61,20 @@ void setup()
 
     wifi_connect();
 
-    log_i("at your service");
 #ifdef LED_Pin
     digitalWrite(LED_Pin, LOW);
 #endif
+
+    // waste 10 frames to let things settle
+    for (int i = 0; i < 10; i++)
+    {
+        log_d("wasting frame");
+        camera_fb_t *fb = esp_camera_fb_get();
+        esp_camera_fb_return(fb);
+        delay(500);
+    }
+
+    log_i("at your service");
 }
 
 void loop()
@@ -79,9 +89,22 @@ void loop()
         ESP.restart();
     }
 
-    // capture a frame
     camera_fb_t *fb = NULL;
+
+    // waste a frame again
     esp_err_t frame_err = camera_capture(&fb);
+    if (frame_err != ESP_OK || !fb->len)
+    {
+        log_e("Camera capture failed with error 0x%x, restarting\n", frame_err);
+        blink(1 * 1000);
+        ESP.restart();
+        return;
+    }
+    // free it
+    esp_camera_fb_return(fb);
+
+    // capture a frame
+    frame_err = camera_capture(&fb);
     if (frame_err != ESP_OK || !fb->len)
     {
         log_e("Camera capture failed with error 0x%x, restarting\n", frame_err);

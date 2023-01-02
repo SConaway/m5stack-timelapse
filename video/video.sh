@@ -8,3 +8,6 @@ node timestamp.js
 
 # call ffmpeg script
 ./ffmpeg.sh
+
+# print video file size
+ls -l ../images/video.mp4 | awk '{print $5}'

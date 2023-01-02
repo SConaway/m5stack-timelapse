@@ -27,4 +27,4 @@ ffmpeg -y -framerate $framerate -pattern_type glob -i "$input_dir/*.jpg" -c:v li
 # ffmpeg -i $temp_file -r 30 $output_file
 
 # remove input directory
-rm -rf $input_dir
+# rm -rf $input_dir
